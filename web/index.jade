@@ -1,0 +1,75 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        title Огонь!
+        link(rel='shortcut icon', href='/favicon.ico')
+        // это можно выкинуть и заменить своими стилями
+        link(rel='stylesheet', type='text/css', href='css/main.css')
+        link(rel='stylesheet', type='text/css', href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css")
+        // например, можно заюзать Bootstrap:
+    body
+        .container
+            p
+                | Оно работает!
+                br
+                |  Полдела сделано :)
+            p
+                strong Дано:
+                |  сервер, который умеет API из одного вызова.
+                br
+                |     На входе одна фраза (вопрос), на выходе другая (ответ).
+                br
+                |  Действующий макет:
+            form.form-inline(onsubmit="$.post('/api/get-answer', {q: this.q.value}).done(function(resp) {\
+        if (resp.ok) {\
+        alert(resp.a)\
+        } else {\
+        console.log('ERR:', resp.error);\
+        }\
+        }); return false")
+                input(name='q', type='text', placeholder='Введите вопрос', autofocus='')
+                button(type='submit') Узнать ответ
+                div
+                    small На одинаковые вопросы будут одинаковые ответы
+            p
+                strong Что надо:
+                |  сделать из этого ↑ убожества
+                em няшный прототип
+                |  чатика на
+                |     двоих (вопрос-ответ, вопрос-ответ).
+            ul
+                li
+                    | «няшный» означает, что вам самим должно понравиться то, что получилось: маленькое, но симпатичное;
+                li
+                    | «прототип» означает, что вы не потратите на это слишком много времени.
+                    | Сами решайте, что надо сделать обязательно, а что можно и выкинуть.
+            p
+                small
+                    | Примечание: сервер уже есть, его трогать не надо. В частности,
+                    | не надо его переписывать на Node.js. Его надо просто использовать.
+                    | А вот фронтенд можно и нужно переработать.
+            p
+                | В качестве образца того, как выглядит и как работает чатик, можно взять
+                | любой мессенджер, любую соцсеть, любой продающий чат-консультант
+                | (вы на нашем сайте уже 3 секунды. Чем могу помочь?). Короче, собственный опыт и здравый смысл.
+            p Можно использовать (на выбор и по вкусу):
+            ul
+                li Vanilla JS
+                li ReactJS
+                li Bootstrap
+                li jQuery
+                li SASS, LESS, PostCSS и т.п.
+                li ES6, ES7 (и что там успеет выйти за те минуты, пока сочиняется этот текст)
+            p
+                | Нельзя использовать Angular (оба) и CoffeeScript.
+                br
+                |     Про остальное лучше посоветоваться.
+            p ...и чем проще, тем лучше:
+            p
+                img(src='errors.jpg')
+            // jQuery совершенно не обязателен. Вообще, весь этот файл дан просто для примера
+        script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
+        script(src='main.js')
+
+
