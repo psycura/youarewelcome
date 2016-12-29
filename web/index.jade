@@ -21,6 +21,11 @@ html
                 |     На входе одна фраза (вопрос), на выходе другая (ответ).
                 br
                 |  Действующий макет:
+            .open-chat__btn
+                a(href="#" id='openChat').btn.btn-success.btn-lg
+                    i.fa.fa-whatsapp
+                    |Давай поговорим
+
             form.form-inline(onsubmit="$.post('/api/get-answer', {q: this.q.value}).done(function(resp) {\
         if (resp.ok) {\
         alert(resp.a)\

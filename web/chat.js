@@ -1,9 +1,9 @@
 $(function(){
     $("#addClass").click(function () {
-        $('#qnimate').addClass('popup-box-on');
+        $('#sidebar_secondary').addClass('popup-box-on');
     });
     
     $("#removeClass").click(function () {
-        $('#qnimate').removeClass('popup-box-on');
+        $('#sidebar_secondary').removeClass('popup-box-on');
     });
 })

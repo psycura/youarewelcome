@@ -13,6 +13,7 @@
     <div class="container">
       <p>Оно работает!<br> Полдела сделано :)</p>
       <p><strong>Дано:</strong> сервер, который умеет API из одного вызова.<br>    На входе одна фраза (вопрос), на выходе другая (ответ).<br> Действующий макет:</p>
+      <div class="open-chat__btn"><a href="#" id="openChat" class="btn btn-success btn-lg"><i class="fa fa-whatsapp"></i>Давай поговорим</a></div>
       <form onsubmit="$.post('/api/get-answer', {q: this.q.value}).done(function(resp) {        if (resp.ok) {        alert(resp.a)        } else {        console.log('ERR:', resp.error);        }        }); return false" class="form-inline">
         <input name="q" type="text" placeholder="Введите вопрос" autofocus="">
         <button type="submit">Узнать ответ</button>
