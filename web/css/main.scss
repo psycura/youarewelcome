@@ -1,0 +1,29 @@
+//vars
+$footer-height: rem(593px);
+$container-width: rem(1366px);
+
+$orange: #e9603c;
+$green: #71b13b;
+$black: #333333;
+$grey: #666666;
+
+
+
+
+// layout
+@import "_misc/normalize";
+@import "_misc/mixins";
+@import "_misc/adjustment";
+@import "plugins/font-awesome";
+
+
+// styles
+@import "sections/chat";
+
+
+
+
+//media
+
+
+
