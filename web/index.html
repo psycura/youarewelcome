@@ -10,49 +10,63 @@
     <!-- например, можно заюзать Bootstrap:-->
   </head>
   <body>
-    <div class="container">
-      <p>Оно работает!<br> Полдела сделано :)</p>
-      <p><strong>Дано:</strong> сервер, который умеет API из одного вызова.<br>    На входе одна фраза (вопрос), на выходе другая (ответ).<br> Действующий макет:</p>
-      <div class="open-chat__btn"><a href="#" id="openChat" class="btn btn-success btn-lg"><i class="fa fa-whatsapp"></i>Давай поговорим</a></div>
-      <form onsubmit="$.post('/api/get-answer', {q: this.q.value}).done(function(resp) {        if (resp.ok) {        alert(resp.a)        } else {        console.log('ERR:', resp.error);        }        }); return false" class="form-inline">
-        <input name="q" type="text" placeholder="Введите вопрос" autofocus="">
-        <button type="submit">Узнать ответ</button>
-        <div><small>На одинаковые вопросы будут одинаковые ответы</small></div>
-      </form>
-      <p><strong>Что надо:</strong> сделать из этого ↑ убожества<em>няшный прототип</em> чатика на
-            двоих (вопрос-ответ, вопрос-ответ).
-      </p>
-      <ul>
-        <li>«няшный» означает, что вам самим должно понравиться то, что получилось: маленькое, но симпатичное;</li>
-        <li>
-          «прототип» означает, что вы не потратите на это слишком много времени.
-          Сами решайте, что надо сделать обязательно, а что можно и выкинуть.
-        </li>
-      </ul>
-      <p><small>
-          Примечание: сервер уже есть, его трогать не надо. В частности,
-          не надо его переписывать на Node.js. Его надо просто использовать.
-          А вот фронтенд можно и нужно переработать.</small></p>
-      <p>
-        В качестве образца того, как выглядит и как работает чатик, можно взять
-        любой мессенджер, любую соцсеть, любой продающий чат-консультант
-        (вы на нашем сайте уже 3 секунды. Чем могу помочь?). Короче, собственный опыт и здравый смысл.
-      </p>
-      <p>Можно использовать (на выбор и по вкусу):</p>
-      <ul>
-        <li>Vanilla JS</li>
-        <li>ReactJS</li>
-        <li>Bootstrap</li>
-        <li>jQuery</li>
-        <li>SASS, LESS, PostCSS и т.п.</li>
-        <li>ES6, ES7 (и что там успеет выйти за те минуты, пока сочиняется этот текст)</li>
-      </ul>
-      <p>Нельзя использовать Angular (оба) и CoffeeScript.<br>    Про остальное лучше посоветоваться.</p>
-      <p>...и чем проще, тем лучше:</p>
-      <p><img src="errors.jpg"></p>
-      <!-- jQuery совершенно не обязателен. Вообще, весь этот файл дан просто для примера-->
+    <div id="root">
+      <div class="wrapper">
+        <div id="open__chat_btn" class="open-chat__btn"><a href="#" id="openChat" class="btn btn-success btn-lg"><i class="fa fa-whatsapp"></i>Давай поговорим</a></div>
+        <div id="chat__block" class="chat__block">
+          <div class="chat__head">
+            <div class="chat__head_left"><a href="#">
+                <div class="md__user_pic"><img src="img/content/user.jpg" alt="Eugene Alitz (Front End Developer)" class="md__user_image"></div><span class="md__user_name">Eugene Alitz</span></a></div>
+            <div class="chat__head_right"><a href="#" class="chat__close_btn"><i class="fa fa-close"></i></a></div>
+          </div>
+          <div id="chat" class="chat__wrapper chat__box_wrapper chat__box_active">
+            <div class="chat__content">
+              <div class="chat__message_wrapper chat__message_display">
+                <div class="chat__user_avatar"><a href="#"><img src="img/content/user.jpg" alt="Eugene Alitz (Front End Developer)" class="md__user_image"></a></div>
+                <ul class="chat__message">
+                  <li class="chat__message_text"><span class="chat__message_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, eum?</span><span class="chat__message_time">13:38</span></li>
+                </ul>
+              </div>
+              <div class="chat__message_wrapper chat__message_right">
+                <div class="chat__user_avatar"><a href="#"><img src="img/content/user.jpg" alt="Eugene Alitz (Front End Developer)" class="md__user_image"></a></div>
+                <ul class="chat__message">
+                  <li class="chat__message_text"><span class="chat__message_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, eum?</span><span class="chat__message_time">13:45</span></li>
+                </ul>
+              </div>
+              <div class="chat__message_wrapper chat__message_display">
+                <div class="chat__user_avatar"><a href="#"><img src="img/content/user.jpg" alt="Eugene Alitz (Front End Developer)" class="md__user_image"></a></div>
+                <ul class="chat__message">
+                  <li class="chat__message_text"><span class="chat__message_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, eum?</span><span class="chat__message_time">13:38</span></li>
+                </ul>
+              </div>
+              <div class="chat__message_wrapper chat__message_right">
+                <div class="chat__user_avatar"><a href="#"><img src="img/content/user.jpg" alt="Eugene Alitz (Front End Developer)" class="md__user_image"></a></div>
+                <ul class="chat__message">
+                  <li class="chat__message_text"><span class="chat__message_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, eum?</span><span class="chat__message_time">13:45</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="chat__submit_box">
+            <div class="uk__input_group">
+              <div class="gurdeep__chat_box"><span class="uk__input_group-addon"><a href="#"><i class="fa fa-smile-o"></i></a></span>
+                <textarea placeholder="Type a message" name="submit_message" rows="1" id="submit__message" class="md-input"></textarea>
+                <!--input(name="submit_message" type="text" placeholder="Type a message")#submit__message.md-input--><span class="uk__input_group-addon"><a href="#" class="submit__btn"><i class="fa fa-send"></i></a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- jQuery совершенно не обязателен. Вообще, весь этот файл дан просто для примера-->
+      </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="js/react/react.js"></script>
+    <script src="js/react/react-dom.js"></script>
+    <script src="js/react/browser.min.js"></script>
+    <script src="js/react/EventEmitter.js"></script>
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <!--script(src='scripts/zangodb.min.js')-->
+    <script src="js/app.js" type="text/babel"></script>
     <script src="main.js"></script>
   </body>
 </html>
