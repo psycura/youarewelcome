@@ -1,5 +1,11 @@
 window.ee = new EventEmitter();
 
+
+var arrayvar = this.state.arrayvar.slice()
+arrayvar.push(newelement)
+this.setState({ arrayvar: arrayvar })
+
+
 let my_news = [
     {
         author : 'Саша Печкин',
@@ -110,7 +116,7 @@ let Add = React.createClass({
     onClickHandler : function () {
         let author = ReactDOM.findDOMNode(this.refs.authorInput).value,
             textEl = ReactDOM.findDOMNode(this.refs.newsText),
-            text=textEl.value;
+            text = textEl.value;
         
         let item = [{
             author : author,
@@ -118,7 +124,7 @@ let Add = React.createClass({
             bigText : '...'
         }];
         window.ee.emit('News.add', item);
-        textEl.value='';
+        textEl.value = '';
         
         
     },
@@ -172,10 +178,10 @@ let App = React.createClass({
         /* Слушай событие "Создана новость"
          если событие произошло, обнови this.state.news
          */
-        let self=this;
-        window.ee.addListener('News.add',function (item) {
-            let nextNews=item.concat(self.state.news);
-            self.setState({news:nextNews});
+        let self = this;
+        window.ee.addListener('News.add', function (item) {
+            let nextNews = item.concat(self.state.news);
+            self.setState({news : nextNews});
         })
     },
     
