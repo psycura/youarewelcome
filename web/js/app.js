@@ -12,7 +12,8 @@ let users = [
         name : "Amad Sergin"
     }
 ];
-let my__messages=JSON.parse(localStorage.getItem('messages'));
+let returnedMessages = JSON.parse(localStorage.getItem('messages'));
+let my__messages = (returnedMessages ? returnedMessages : []);
 
 const Message = React.createClass({
     propTypes : {
@@ -56,7 +57,8 @@ const ChatContent = React.createClass({
     propTypes : {
         data : React.PropTypes.array.isRequired
     },
-            
+    
+    
     render : function () {
         let data = this.props.data;
         let msgTemplate;
@@ -82,39 +84,41 @@ const ChatContent = React.createClass({
 });
 
 const ChatSubmit = React.createClass({
+    getInitialState : function () {
+        return {
+            disabled : true
+        };
+    },
     
     onSubmitHandler : function (e) {
         e.preventDefault();
+        
         let msgBlock = ReactDOM.findDOMNode(this.refs.msgText),
-            messageText = msgBlock.value;
-        
-        let message = [{
-            msgText : messageText,
-            user : users[0]
-        }];
-        window.ee.emit('Message.add', message);
-        
-        let responce;
-        $.post('/api/get-answer',
-            {
-                q : messageText
-            })
-            .done(function (resp) {
-                if (resp.ok) {
-                    responce = resp.a;
-                    // alert(responce);
-                    message = [{
-                        msgText : responce,
-                        user : users[1]
-                    }];
-                    window.ee.emit('Message.add', message);
-                }
-                else {
-                    alert(resp.error);
-                }
-            });
-        
-        msgBlock.value = '';
+            messageText = msgBlock.value,
+            message = [{msgText : messageText, user : users[0]}];
+        if (messageText != '') {
+            window.ee.emit('Message.add', message);
+            let responce;
+            $.post('/api/get-answer',
+                {
+                    q : messageText
+                })
+                .done(function (resp) {
+                    if (resp.ok) {
+                        responce = resp.a;
+                        // alert(responce);
+                        message = [{
+                            msgText : responce,
+                            user : users[1]
+                        }];
+                        window.ee.emit('Message.add', message);
+                    }
+                    else {
+                        alert(resp.error);
+                    }
+                });
+            msgBlock.value = '';
+        }
     },
     
     render : function () {
@@ -129,12 +133,15 @@ const ChatSubmit = React.createClass({
                             id="submit__message"
                             rows="1"
                             cols="25"
-                            placeholder="Type a message">
+                            placeholder="Type a message"
+                        >
                         </textarea>
                         <span className="uk__input_group-addon">
                           <a href="#"
                              onClick={this.onSubmitHandler}
-                             className="submit__btn">
+                             className="submit__btn"
+
+                          >
                             <i className="fa fa-send"/>
                           </a>
                         </span>
@@ -158,17 +165,31 @@ const ChatBlock = React.createClass({
         window.ee.addListener('Message.add', function (message) {
             let nextMessage = (self.state.messages).concat(message);
             self.setState({messages : nextMessage});
-            sMessages=JSON.stringify(self.state.messages);
-            localStorage.setItem('messages',sMessages);
+            sMessages = JSON.stringify(self.state.messages);
+            localStorage.setItem('messages', sMessages);
+        });
+        
+            let chatBlock = $('.chat__content');
             
-            
-        })
+            $("#chat").animate({
+                scrollTop : chatBlock.height()
+            });
+       
+    },
+    
+    componentDidUpdate : function () {
+        let chatBlock = $('.chat__content');
+        
+        $("#chat").animate({
+            scrollTop : chatBlock.height()
+        });
     },
     
     componentWillUnmount : function () {
         window.ee.removeListener('Message.add');
         
     },
+    
     render : function () {
         
         return (

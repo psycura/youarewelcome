@@ -1,10 +1,6 @@
 window.ee = new EventEmitter();
 
 
-var arrayvar = this.state.arrayvar.slice()
-arrayvar.push(newelement)
-this.setState({ arrayvar: arrayvar })
-
 
 let my_news = [
     {
