@@ -2,41 +2,36 @@ window.ee = new EventEmitter();
 
 let users = [
     {
-        userId : '001',
-        userPic : 'img/content/user.jpg',
+        userId : "001",
+        userPic : "img/content/user.jpg",
         name : "Eugene Alitz"
     },
     {
-        userId : '002',
-        userPic : 'img/content/ava.jpg',
+        userId : "002",
+        userPic : "img/content/ava.jpg",
         name : "Amad Sergin"
     }
 ];
-let returnedMessages = JSON.parse(localStorage.getItem('messages'));
+let returnedMessages = JSON.parse(localStorage.getItem("messages"));
 let my__messages = (returnedMessages ? returnedMessages : []);
 
 const Message = React.createClass({
     propTypes : {
         data : React.PropTypes.shape({
-            // userId : React.PropTypes.string.isRequired,
-            // userPic : React.PropTypes.string.isRequired,
             msgText : React.PropTypes.string.isRequired,
         })
     },
-    
     render : function () {
         let userId = this.props.data.user.userId,
             userPic = this.props.data.user.userPic,
             msgText = this.props.data.msgText;
-        
         return (
             <div
-                className={"chat__message_wrapper " + (userId != '001' ? "chat__message_right" : " chat__message_display")}>
+                className={"chat__message_wrapper " + (userId != "001" ? "chat__message_right" : " chat__message_display")}>
                 <div className="chat__user_avatar">
                     <a href="#">
                         <img src={userPic}
-                             className="md__user_image" alt=""
-                        />
+                             className="md__user_image" alt=""/>
                     </a>
                 </div>
                 <ul className="chat__message">
@@ -96,10 +91,10 @@ const ChatSubmit = React.createClass({
         let msgBlock = ReactDOM.findDOMNode(this.refs.msgText),
             messageText = msgBlock.value,
             message = [{msgText : messageText, user : users[0]}];
-        if (messageText != '') {
-            window.ee.emit('Message.add', message);
+        if (messageText != "") {
+            window.ee.emit("Message.add", message);
             let responce;
-            $.post('/api/get-answer',
+            $.post("/api/get-answer",
                 {
                     q : messageText
                 })
@@ -111,13 +106,13 @@ const ChatSubmit = React.createClass({
                             msgText : responce,
                             user : users[1]
                         }];
-                        window.ee.emit('Message.add', message);
+                        window.ee.emit("Message.add", message);
                     }
                     else {
                         alert(resp.error);
                     }
                 });
-            msgBlock.value = '';
+            msgBlock.value = "";
         }
     },
     
@@ -162,23 +157,23 @@ const ChatBlock = React.createClass({
     componentDidMount : function () {
         let self = this;
         let sMessages;
-        window.ee.addListener('Message.add', function (message) {
+        window.ee.addListener("Message.add", function (message) {
             let nextMessage = (self.state.messages).concat(message);
             self.setState({messages : nextMessage});
             sMessages = JSON.stringify(self.state.messages);
-            localStorage.setItem('messages', sMessages);
+            localStorage.setItem("messages", sMessages);
         });
         
-            let chatBlock = $('.chat__content');
-            
-            $("#chat").animate({
-                scrollTop : chatBlock.height()
-            });
-       
+        let chatBlock = $(".chat__content");
+        
+        $("#chat").animate({
+            scrollTop : chatBlock.height()
+        });
+        
     },
     
     componentDidUpdate : function () {
-        let chatBlock = $('.chat__content');
+        let chatBlock = $(".chat__content");
         
         $("#chat").animate({
             scrollTop : chatBlock.height()
@@ -186,7 +181,7 @@ const ChatBlock = React.createClass({
     },
     
     componentWillUnmount : function () {
-        window.ee.removeListener('Message.add');
+        window.ee.removeListener("Message.add");
         
     },
     
@@ -237,5 +232,5 @@ const App = React.createClass({
 
 ReactDOM.render(
     <App />,
-    document.getElementById('root')
+    document.getElementById("root")
 );
